@@ -123,12 +123,14 @@ Nada de esto está inventado en la web: todo aparece como marcador visible.
 | `[FORMULARIO: FALTA DESTINO]` | No hay servidor de envío. Hoy el formulario abre el correo del visitante con el mensaje escrito, y lo dice. |
 | `[SERVIR TIPOGRAFÍAS EN LOCAL — A DECIDIR]` | Las tipografías vienen de Google Fonts. Si se quiere cero conexiones externas, se alojan en el dominio. |
 
-## Contradicción encontrada en la web actual
+## Un pack que solo está en la portada
 
-**Cuentas de e-mail del pack superior.** `index.html` anunciaba «hasta 20 cuentas» en el
-bloque *Tienda online / Web corporativa*; `servicios.html` dice «hasta 10» en Web Premium.
-Se ha publicado el dato de `servicios.html`, que es la página específica del servicio.
-Conviene confirmar cuál es el bueno.
+`servicios.html` documenta Web Básica, Web Premium y las tres tiendas, pero **el tercer
+bloque de `index.html` es otro pack**: «Tienda online / **Web corporativa**», con
+integración de funcionalidades a medida, acceso a RRSS y hasta **20** cuentas de e-mail.
+Está recogido en la tercera tarjeta de `#packs` y en el JSON-LD.
+
+Las «20 cuentas» **no** contradicen las «10» de Web Premium: son packs distintos.
 
 ## Clientes con la web caída (comprobado el 2026-09-17)
 

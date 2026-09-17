@@ -348,7 +348,11 @@ ul{margin:0;padding:0;list-style:none}
 .pack__in{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(18px,2.6vw,44px);
   padding:clamp(22px,3vw,44px)}
 .pack__hd{display:flex;flex-direction:column}
-.pack__hd h3{font-size:clamp(22px,2.8vw,34px);margin-bottom:10px}
+.pack__hd h3{font-size:clamp(22px,2.8vw,34px);margin-bottom:10px;line-height:1.02}
+.pack__alt{font-family:var(--mono);font-size:.42em;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:400;color:var(--blue);display:inline-block;margin-top:8px}
+.is-rendered .pack--ink .pack__alt{color:var(--yellow)}
+.graf__all{margin:22px 0 0;font-size:15px;color:var(--navy);font-weight:600}
 .pack__for{font-size:14.5px;color:var(--ink-mid);margin-bottom:18px}
 .pack__price{display:inline-block;margin-bottom:20px}
 .pack__feat li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;

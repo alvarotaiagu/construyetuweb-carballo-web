@@ -13,7 +13,7 @@ en 2015 y subvenciones.html es de 2020).
 
 | # | URL antigua | Qué contenía | Qué se usa | Sección nueva | Redirección 301 |
 |---|---|---|---|---|---|
-| 1 | `/index.html` | Portada: claim, ventajas de tener web, 3 packs resumidos | Claim, lista de 9 ventajas, packs (versión ampliada de servicios.html) | Hero + `#que-hacemos` + `#packs` | `/` |
+| 1 | `/index.html` | Portada: claim, ventajas de tener web, 3 packs resumidos | Las 9 ventajas literales, el pack **Tienda online / Web corporativa** (que solo está aquí, no en servicios.html), "registramos su dominio con el hosting de su elección" y la frase de servicio | Hero + `#que-hacemos` + `#packs` | `/` |
 | 2 | `/servicios.html` | Web Básica, Web Premium, 3 packs de tienda, SSL/Hosting/e-mail, diseño gráfico | **Todo, literal** | `#packs` + `#tiendas` + `#grafico` | `/#packs` |
 | 3 | `/clientes.html` | 9 logos con enlace a la web del cliente | Los 9 logos + URLs | `#clientes` | `/#clientes` |
 | 4 | `/soporte-.html` | Asistencia informática remota (7 servicios), "Descargar software", "Pide cita" | Los 7 servicios + "Pide cita" (WhatsApp). La descarga **no** va en portada | `#soporte` | `/#soporte` |
@@ -41,7 +41,6 @@ Extra fuera de sitemap, enlazado desde la portada: `/blog/x5feed.php` → `/`.
 | `subvenciones.html` | Convocatoria **de 2020** (Igape, COVID-19). Reproducirla en 2026 induce a error. |
 | `pagos.html` | Cobro puntual a un cliente concreto ("Alejo"). No es contenido público. |
 | `acceso.html` | Página vacía. |
-| "Hasta 20 cuentas de E-mail" (index.html) | Contradice servicios.html (10 en Premium). Se usa el dato de servicios.html, que es la página específica. Ver §5. |
 | Capturas de webs de clientes | `[CAPTURAS DE CLIENTES — REQUIEREN PERMISO]`. No se han incluido. |
 
 ---
@@ -106,16 +105,41 @@ Descartadas por ser iconos genéricos de la plantilla WebSite X5:
 
 ## 5. Contradicciones encontradas en la web actual
 
-1. **Cuentas de e-mail del pack superior**: `index.html` anuncia "hasta 20
-   cuentas" en el bloque *Tienda online / Web corporativa*; `servicios.html`
-   dice "hasta 10" en Web Premium. Se ha usado el de `servicios.html`.
-   → `[CONFIRMAR Nº DE CUENTAS DE E-MAIL DEL PACK SUPERIOR]`
-2. **Titular legal ≠ firma**: `privacidad.html` identifica como titular a
+1. **Titular legal ≠ firma**: `privacidad.html` identifica como titular a
    **JOSE ANTONIO GOMEZ ESMORIS**, CIF 79332753A, Calle Vázquez de Parga 76,
    15100 Carballo. Todas las páginas firman **"By Víctor Serén"**.
    → `[CONFIRMAR QUIÉN FIRMA PÚBLICAMENTE LA WEB]`
-3. **Dirección**: la web solo dice "15100 Carballo"; el aviso legal y la ficha
+2. **Dirección**: la web solo dice "15100 Carballo"; el aviso legal y la ficha
    de Google dicen Vázquez de Parga 76 (local que en la foto de Google es la
    tienda BEEP Carballo). → `[CONFIRMAR SI ATIENDE EN LA TIENDA BEEP O SOLO ONLINE]`
-4. **Logo**: el PNG pone "Construyetuweb.es" (C mayúscula); el `<title>` pone
+3. **Logo**: el PNG pone "Construyetuweb.es" (C mayúscula); el `<title>` pone
    "construyetuweb.es". Se respeta cada uno en su sitio.
+
+
+---
+
+## 6. Contenido que SOLO está en index.html
+
+`servicios.html` documenta Web Básica, Web Premium y los tres packs de tienda, pero **no**
+el tercer bloque de la portada. Se recupera de `index.html`:
+
+| Dato | Dónde estaba | Dónde está ahora |
+|---|---|---|
+| Pack **«Tienda online / Web corporativa»** | index.html, tercera tarjeta | 3ª tarjeta de `#packs` + `Service` en el JSON-LD |
+| «Puede integrar funcionalidades a su web para que se adapte tanto a sus necesidades como a su presupuesto» | ídem | descripción de esa tarjeta |
+| «Creación de hasta **20** cuentas de e-mail» | ídem | ítem de esa tarjeta |
+| «Diseño responsive y acceso a RRSS» | ídem | ítem de esa tarjeta |
+| «Registramos su dominio con **el hosting de su elección**» | index.html | paso 04 de `#proceso` |
+| «Diseñamos y configuramos su sitio web o tienda online, con un servicio profesional y eficaz» | index.html | entradilla de `#que-hacemos` |
+| Las 9 ventajas | index.html | bloque «Lo que gana el negocio» |
+| «Todo lo que necesita su empresa» | servicios.html | cierre de `#grafico` |
+
+**Corrección (2026-09-17).** En una versión anterior de este inventario se dio como
+contradicción que index.html dijera «hasta 20 cuentas» y servicios.html «hasta 10».
+No lo es: las 10 son de **Web Premium** y las 20 del pack **Tienda online / Web
+corporativa**, que es otro. El error fue de lectura, no de la web del cliente.
+
+Slogans de portada NO reutilizados, por decisión de tono («Aumente sus ventas con una
+tienda online», «Nos adaptamos a sus necesidades», «La solución perfecta para su
+negocio»): son copy genérico y el encargo pedía tono propio. Los datos concretos sí
+están todos.
