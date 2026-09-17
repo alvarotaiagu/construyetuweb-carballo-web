@@ -148,6 +148,42 @@ ul{margin:0;padding:0;list-style:none}
   color var(--render-dur) var(--ease),border-color var(--render-dur) var(--ease)}
 [data-render]:not(.is-rendered) .btn{background:transparent;color:transparent;border:1px dashed var(--wire)}
 
+/* ---------- Cortina de entrada (preloader) ----------
+   Del boceto a la web, que es de lo que va la casa: se trazan las columnas
+   de la rejilla de maquetacion, aparece el logo y luego EL VIEWPORT SE ABRE
+   EN DOS, con un filete marino en el canto de cada mitad para que el corte
+   se lea sobre blanco.
+   A proposito no "renderiza" cajas: eso ya lo hace cada seccion al entrar.
+   El panel no lleva fondo propio; el blanco lo ponen las dos mitades, o al
+   abrirse se destaparia el panel y no la pagina.
+   Ojo: .cortina usa display:grid, asi que [hidden] necesita su regla. */
+.cortina{ position:fixed; inset:0; z-index:400; display:grid; place-items:center; overflow:hidden; }
+.cortina[hidden]{ display:none; }
+html.cortina-puesta{ overflow:hidden; }
+
+.cortina-mitad{ position:absolute; left:0; right:0; height:50.5%; background:var(--canvas); overflow:hidden; }
+.cortina-mitad--arriba{ top:0; border-bottom:2px solid var(--navy); }
+.cortina-mitad--abajo{ bottom:0; border-top:2px solid var(--navy); }
+.cortina-rejilla{ position:absolute; inset:0 6vw; display:flex; justify-content:space-between; }
+.cortina-rejilla i{ width:1px; background:var(--wire); transform-origin:50% 0%; }
+.cortina-mitad--abajo .cortina-rejilla i{ transform-origin:50% 100%; }
+
+/* subido respecto al centro exacto: el filete marino por donde se abre el
+   viewport cae justo en el 50 %, y centrado ahi le pasaria por encima al
+   logo y pareceria que lo corta. */
+.cortina-centro{ position:relative; display:grid; justify-items:center; gap:.9rem; padding:0 1.5rem; text-align:center; transform:translateY(-7vh); }
+.cortina-logo{ width:min(52vw,19rem); height:auto; }
+.cortina-regla{ display:block; width:min(30vw,170px); height:2px; background:var(--blue); transform-origin:50% 50%; }
+.cortina-pie{ font-family:var(--mono); font-size:.7rem; letter-spacing:.2em; color:var(--wire-ink); }
+
+html:not(.no-motion) .cortina-rejilla i{ transform:scaleY(0); }
+html:not(.no-motion) .cortina-logo{ opacity:0; }
+html:not(.no-motion) .cortina-regla{ transform:scaleX(0); }
+html:not(.no-motion) .cortina-pie{ opacity:0; }
+
+/* con movimiento reducido no debe verse ni un fotograma */
+@media (prefers-reduced-motion: reduce){ .cortina{ display:none; } }
+
 /* ---------- cabecera ------------------------------------------------ */
 
 .hdr{position:fixed;inset:0 0 auto;z-index:60;background:rgba(255,255,255,.88);

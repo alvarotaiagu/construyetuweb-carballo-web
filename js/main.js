@@ -47,6 +47,70 @@
     }
   }
 
+
+  /* ---------------------------------------------------- cortina de entrada
+     Gesto propio: se trazan las columnas de la rejilla de maquetacion,
+     aparece el logo y EL VIEWPORT SE ABRE EN DOS. A proposito no "renderiza"
+     cajas de boceto: eso ya lo hace cada seccion al entrar en pantalla.
+
+     Dos momentos distintos:
+       - alAbrirse(fn) -> cuando las mitades EMPIEZAN a separarse, para que
+         el hero ya se este renderizando cuando asoma por el hueco.
+       - retirar()     -> al terminar: quita el nodo, devuelve el scroll y
+         refresca ScrollTrigger, que midio con overflow:hidden.
+     Se retira SIEMPRE (sin GSAP, con reduced-motion o por el timeout de
+     seguridad): una cortina atascada tapa el sitio entero. */
+  var cortina = (function initCortina() {
+    var el = $('[data-cortina]');
+    var espera = [];
+    var abierta = false;
+    var fuera = false;
+
+    function abrir() {
+      if (abierta) return;
+      abierta = true;
+      espera.splice(0).forEach(function (fn) { try { fn(); } catch (e) {} });
+    }
+    function retirar() {
+      abrir();
+      if (fuera) return;
+      fuera = true;
+      if (el) el.hidden = true;
+      root.classList.remove('cortina-puesta');
+      if (lenis) lenis.start();
+      if (hasST) ScrollTrigger.refresh();
+    }
+
+    var api = { alAbrirse: function (fn) { return abierta ? fn() : espera.push(fn); } };
+    if (!el || !motion || !hasGSAP) { retirar(); return api; }
+
+    root.classList.add('cortina-puesta');
+    if (lenis) lenis.stop();
+
+    var centro = $('.cortina-centro', el);
+    var reglas = $$('.cortina-rejilla i', el);
+    var logo = $('.cortina-logo', el);
+    var regla = $('.cortina-regla', el);
+    var pie = $('.cortina-pie', el);
+    var arriba = $('.cortina-mitad--arriba', el);
+    var abajo = $('.cortina-mitad--abajo', el);
+    var ABRE = 1.3;
+
+    var tl = gsap.timeline({ onComplete: retirar });
+    if (reglas.length) tl.to(reglas, { scaleY: 1, duration: 0.55, stagger: 0.022, ease: 'power2.out' }, 0);
+    if (logo) tl.to(logo, { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.45);
+    if (regla) tl.to(regla, { scaleX: 1, duration: 0.65, ease: 'power2.inOut' }, 0.7);
+    if (pie) tl.to(pie, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.8);
+
+    tl.add(abrir, ABRE);
+    if (centro) tl.to(centro, { opacity: 0, duration: 0.3, ease: 'power2.in' }, ABRE);
+    if (arriba) tl.to(arriba, { yPercent: -101, duration: 1.0, ease: 'expo.inOut' }, ABRE + 0.05);
+    if (abajo) tl.to(abajo, { yPercent: 101, duration: 1.0, ease: 'expo.inOut' }, ABRE);
+
+    setTimeout(retirar, 5200);
+    return api;
+  })();
+
   /* Anclas internas: con Lenis hay que pedirle el scroll a el. */
   $$('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
@@ -207,8 +271,12 @@
       renderSection(hero, 0);
     } else {
       var start = function () {
-        // El boceto se deja leer antes de renderizarse.
-        setTimeout(function () { renderSection(hero, 0); }, 620);
+        /* El boceto se deja leer antes de renderizarse, pero no antes de que
+           se abra la cortina: si no, el hero se renderiza a puerta cerrada y
+           lo que asoma por el hueco ya esta quieto. */
+        cortina.alAbrirse(function () {
+          setTimeout(function () { renderSection(hero, 0); }, 620);
+        });
       };
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
       else window.addEventListener('load', start);

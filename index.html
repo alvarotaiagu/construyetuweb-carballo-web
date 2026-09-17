@@ -23,6 +23,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/style.css">
+<!-- Sin JavaScript no hay quien abra el viewport: mejor no ensenarla. -->
+<noscript><style>.cortina { display: none !important; }</style></noscript>
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -97,6 +99,20 @@
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
+
+<!-- Cortina de entrada: la rejilla de maquetacion se traza y el viewport se
+     abre en dos. Se retira SIEMPRE desde js/main.js; el script de abajo es
+     la red de seguridad por si main.js no llega a cargarse. -->
+<div class="cortina" data-cortina aria-hidden="true">
+  <span class="cortina-mitad cortina-mitad--arriba"><span class="cortina-rejilla"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="cortina-mitad cortina-mitad--abajo"><span class="cortina-rejilla"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <div class="cortina-centro">
+    <img class="cortina-logo" src="assets/logos/construyetuweb.svg" alt="" width="320" height="64">
+    <span class="cortina-regla" aria-hidden="true"></span>
+    <p class="cortina-pie">construyetuweb.es</p>
+  </div>
+</div>
+<script>setTimeout(function(){var c=document.querySelector('[data-cortina]');if(c&&!c.hidden){c.hidden=true;document.documentElement.classList.remove('cortina-puesta');}},6000);</script>
 <span class="readout" id="readout" aria-hidden="true"></span>
 <button class="gridBtn" id="gridBtn" type="button" aria-pressed="false"
         title="Ver la rejilla de maquetación (tecla G)">
