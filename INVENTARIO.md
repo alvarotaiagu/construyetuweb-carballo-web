@@ -63,6 +63,26 @@ Extra fuera de sitemap, enlazado desde la portada: `/blog/x5feed.php` → `/`.
 Solo se ha visitado cada web para confirmar que está activa y anotar sector y
 localidad. **No se ha copiado contenido de ninguna.**
 
+### Comprobación de autoría (2026-09-17)
+
+No se han dado por buenos los 9 clientes solo porque estén en `clientes.html`. Se ha
+buscado en la web de cada cliente un crédito que apunte a construyetuweb.es:
+
+| Cliente | Evidencia encontrada en SU web |
+|---|---|
+| Cobetrans | «By Víctor Serén» + enlace a construyetuweb.es |
+| Constrovi | «By Víctor Serén» + enlace a construyetuweb.es |
+| Piscinas y Reparaciones | «By Víctor Serén» + enlace a construyetuweb.es |
+| Reforvibar | «Creado por: construyetuweb.es» + enlace |
+| Veterinaria Gran Vía | «By Víctor Serén» + enlace a construyetuweb.es |
+| Viajes Val Miñor | enlace a construyetuweb.es con «Víctor Serén» |
+| Didactic | sin crédito visible, pero **mismo generador y versión exacta** que construyetuweb.es: `Incomedia WebSite X5 Pro 2022.2.11` |
+| Galibach | no comprobable: la web no responde |
+| Reformas RC | no comprobable: el dominio no resuelve |
+
+Es decir: 7 de los 9 están corroborados en la propia web del cliente, no solo en la del
+proveedor. Los 2 restantes están caídos y se muestran señalados como tales.
+
 Los dos enlaces rotos se marcan en la web nueva como *"web no disponible"* y el
 enlace se desactiva, en vez de mandar al visitante a un error.
 

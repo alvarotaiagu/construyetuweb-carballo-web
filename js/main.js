@@ -259,6 +259,29 @@
     }
   }
 
+  /* ------------------ las tarjetas de la baraja tienen que medir LO MISMO */
+  /* Comparten contenedor: si una es mas alta, asoma por debajo de la que se
+     pega encima y la pila parece rota. Se igualan por JS al alto de la mayor,
+     recalculando al cambiar el ancho (el reparto de columnas cambia).      */
+
+  var packCards = $$('[data-pack] .pack');
+  function equalisePacks() {
+    if (!packCards.length) return;
+    var stacked = window.matchMedia('(min-width:861px)').matches;
+    packCards.forEach(function (c) { c.style.minHeight = ''; });
+    if (!stacked) return;                       // en movil la pila es lineal
+    var max = 0;
+    packCards.forEach(function (c) { max = Math.max(max, c.offsetHeight); });
+    packCards.forEach(function (c) { c.style.minHeight = max + 'px'; });
+    if (hasST) ScrollTrigger.refresh();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(equalisePacks);
+  else window.addEventListener('load', equalisePacks);
+  var eqT;
+  window.addEventListener('resize', function () {
+    clearTimeout(eqT); eqT = setTimeout(equalisePacks, 180);
+  });
+
   /* --------------------- profundidad de la baraja de packs (solo escala) */
 
   if (motion && hasST) {

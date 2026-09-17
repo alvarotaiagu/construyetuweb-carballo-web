@@ -71,6 +71,10 @@ La web es el porfolio: la animación tiene que demostrar el oficio, no decorar.
   (18 px por tarjeta); el recorrido lo da un `::after` dentro del `<ul>`, no un margen
   —un margen abre huecos en vez de apilar—. La tarjeta de abajo se encoge al 94 %.
   Medido: 1260 px de scroll con dos tarjetas pegadas, 420 px con las tres.
+  **Las tres miden lo mismo** (igualadas por JS al alto de la mayor, recalculado al
+  cambiar el ancho): si no, la más alta asoma por debajo de la que se pega encima y la
+  pila parece rota. Por debajo de 861 px no hay baraja: van en lista, porque igualar
+  alturas en una pantalla estrecha deja huecos enormes.
 - **Marquee reactivo**: acelera y se inclina con la velocidad del scroll.
 - Parallax en las fotos, char-reveal de mono a sans, botones magnéticos y contador real.
 - **Herramientas de diseñador**: lectura de coordenadas junto al cursor y overlay de la
