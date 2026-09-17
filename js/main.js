@@ -23,6 +23,16 @@
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
 
+  /* La copia de previsualizacion en GitHub Pages no debe competir en Google
+     con el dominio real. El <link rel=canonical> ya apunta a construyetuweb.es;
+     esto lo refuerza solo en el host de la preview. */
+  if (/\.github\.io$/i.test(location.hostname)) {
+    var nx = document.createElement('meta');
+    nx.name = 'robots';
+    nx.content = 'noindex,nofollow';
+    document.head.appendChild(nx);
+  }
+
   /* ------------------------------------------------- Lenis smooth-scroll */
 
   var lenis = null;

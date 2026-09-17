@@ -3,6 +3,12 @@
 Sustituye a `https://construyetuweb.es/` (Incomedia WebSite X5, sin CMS).
 Diseñador web en Carballo (A Coruña).
 
+**Previsualización:** https://alvarotaiagu.github.io/construyetuweb-carballo-web/
+
+Es una preview, no el sitio definitivo: lleva `canonical` al dominio real y se marca
+`noindex` cuando se sirve desde `github.io`, para no competir en Google con
+construyetuweb.es mientras ahí siga la web antigua.
+
 **Concepto: «Wireframe» — del boceto a la web.** La página se construye delante del
 visitante: primero cajas grises con etiquetas mono (`HEADER`, `H1`, `IMG`, `CTA`) y cotas
 en píxeles; después se rellenan de color, las líneas de texto falso se sustituyen por el
@@ -150,6 +156,13 @@ mayúscula del logo real, aunque el nombre de la marca se escribe en minúsculas
 lenguaje aquí es el wireframe que se renderiza.
 
 ## Publicación
+
+En GitHub Pages (preview) sale de la rama `main`, carpeta raíz, con `.nojekyll`. Como Pages
+no aplica `_redirects` ni `.htaccess`, **el mapa de 301 lo resuelve `404.html`**: detecta si
+cuelga de `/<repo>/` o de la raíz del dominio, inyecta un `<base>` y redirige. Verificado en
+vivo: las 12 URLs antiguas resuelven también en la preview.
+
+Para el dominio definitivo:
 
 1. Subir la carpeta a la raíz del dominio.
 2. Netlify/Vercel/Cloudflare leen `_redirects`; Apache lee `.htaccess`. Si el hosting no
