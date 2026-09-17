@@ -24,8 +24,8 @@ Tinta («Cartucho», niveles CMYK).
 ## Estructura
 
 ```
-index.html                  portada (hero, qué hacemos, packs, tiendas, gráfico,
-                            proceso, clientes, soporte, ayudas, contacto)
+index.html                  portada (hero, qué hacemos, packs, tiendas, responsive,
+                            gráfico, proceso, clientes, soporte, ayudas, CTA, contacto)
 privacidad.html             aviso legal + política de privacidad (texto heredado)
 cookies.html                política de cookies (empieza por lo que guarda esta web)
 soporte/software.html       descargas de asistencia remota, fuera de la portada
@@ -57,9 +57,24 @@ Modo claro siempre. No hay modo oscuro y no se ofrece.
 
 ## Movimiento
 
-Lenis smooth-scroll · render por sección · sticky-stack de los packs como ventanas de
-navegador · char-reveal de mono a sans · botones magnéticos · marquee mono · contador en
-«9 clientes».
+La web es el porfolio: la animación tiene que demostrar el oficio, no decorar.
+
+- **Pasada de render.** Al entrar una sección, una línea de escaneo marino la recorre de
+  arriba abajo y el contenido se renderiza escalonado según su altura: se lee como un
+  render pintando la página, no como un fundido.
+- **Demo de responsive** (`#responsive`). Una maqueta de navegador se estrecha de 1440 a
+  390 px con el scroll. El reflow **no está simulado**: `.rz__frame` es un
+  `container-type:inline-size` y la mini-web usa `@container`, que es exactamente la
+  técnica que se está vendiendo. Por debajo de 760 px no cabe encoger, así que el scrub se
+  apaga, se quita el recorrido vacío y se le dice al visitante que él mismo es la demo.
+- **Baraja de packs.** Las tres tarjetas van contiguas y se pegan con `top` escalonado
+  (18 px por tarjeta); el recorrido lo da un `::after` dentro del `<ul>`, no un margen
+  —un margen abre huecos en vez de apilar—. La tarjeta de abajo se encoge al 94 %.
+  Medido: 1260 px de scroll con dos tarjetas pegadas, 420 px con las tres.
+- **Marquee reactivo**: acelera y se inclina con la velocidad del scroll.
+- Parallax en las fotos, char-reveal de mono a sans, botones magnéticos y contador real.
+- **Herramientas de diseñador**: lectura de coordenadas junto al cursor y overlay de la
+  rejilla de maquetación (botón o tecla `G`).
 
 Con `prefers-reduced-motion: reduce` todo nace ya renderizado: no hay fase de boceto, el
 sticky-stack se vuelve estático y el contador se pinta directamente en 9. El contenido
@@ -78,8 +93,9 @@ Sin canvas, sin partículas, sin código cayendo.
   `[hidden]` manda).
 - El mapa: **cero peticiones a Google antes de pulsar el botón**; el iframe se construye
   al hacer clic.
-- 60 fps durante el scroll; dos tareas largas al cargar (119 ms y 50 ms, GSAP + webfont),
-  ninguna durante el scroll.
+- ~60 fps recorriendo la página entera con scrub, parallax y marquee a la vez;
+  **cero tareas largas** durante el scroll.
+- Sin desbordamiento horizontal en 1600 / 1440 / 1100 / 760 / 400 px.
 
 ---
 

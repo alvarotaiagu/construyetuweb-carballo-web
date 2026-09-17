@@ -92,6 +92,12 @@
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
+<span class="readout" id="readout" aria-hidden="true"></span>
+<button class="gridBtn" id="gridBtn" type="button" aria-pressed="false"
+        title="Ver la rejilla de maquetación (tecla G)">
+  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 1h14v14H1zM5.7 1v14M10.3 1v14M1 5.7h14M1 10.3h14"/></svg>
+  <span>Rejilla</span>
+</button>
 
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
@@ -109,6 +115,7 @@
       <a href="#que-hacemos">Qué hacemos</a>
       <a href="#packs">Packs</a>
       <a href="#tiendas">Tiendas online</a>
+      <a href="#responsive">Responsive</a>
       <a href="#clientes">Clientes</a>
       <a href="#soporte">Soporte</a>
       <a class="btn" href="#contacto">Pide presupuesto</a>
@@ -213,50 +220,85 @@
     </div>
 
     <div class="what">
-      <article class="box what__c">
+      <article class="box box--ink what__c what__c--hero">
         <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
           <rect x="3" y="7" width="34" height="26" rx="2"/><path d="M3 14h34M8 10.5h2M13 10.5h2"/>
           <path d="M9 20h11M9 25h7"/><rect x="24" y="19" width="8" height="8" rx="1"/>
         </svg>
         <h3 class="r-fade">Páginas web</h3>
-        <p class="r-fade">Web Básica o Web Premium, con galería, contacto, ubicación-mapa y diseño
-          responsive. Registro y alojamiento del dominio incluidos.</p>
-        <span class="what__k r-lab r-keep" style="margin-top:14px">SRV/01</span>
+        <p class="r-fade">Web Básica o Web Premium, con galería, información de contacto,
+          ubicación-mapa y diseño responsive. El registro y el alojamiento del dominio van
+          dentro, y las cuentas de correo con tu nombre también.</p>
+        <ul class="what__mini r-fade">
+          <li>Hasta 5 o 10 cuentas de e-mail</li>
+          <li>Dominio registrado y alojado</li>
+          <li>Google My Business en el pack Premium</li>
+        </ul>
+        <a class="what__go r-fade" href="#packs">Ver los dos packs
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+        <span class="what__k r-lab r-keep">SRV/01</span>
       </article>
 
-      <article class="box what__c">
-        <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M6 12h28l-2.6 16a2 2 0 0 1-2 1.7H10.6a2 2 0 0 1-2-1.7Z"/>
-          <path d="M14 12V9a6 6 0 0 1 12 0v3"/><path d="M14 19h12"/>
-        </svg>
-        <h3 class="r-fade">Tiendas online</h3>
-        <p class="r-fade">Tres packs con hosting, SSL, backup diario y hasta 1.000 productos.
-          IP y datacenter en España.</p>
-        <span class="what__k r-lab r-keep" style="margin-top:14px">SRV/02</span>
-      </article>
+      <div class="what__col">
+        <article class="box what__c">
+          <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M6 12h28l-2.6 16a2 2 0 0 1-2 1.7H10.6a2 2 0 0 1-2-1.7Z"/>
+            <path d="M14 12V9a6 6 0 0 1 12 0v3"/><path d="M14 19h12"/>
+          </svg>
+          <div>
+            <h3 class="r-fade">Tiendas online</h3>
+            <p class="r-fade">Tres packs con hosting, SSL, backup diario y hasta 1.000 productos.
+              IP y datacenter en España.</p>
+          </div>
+          <span class="what__k r-lab r-keep">SRV/02</span>
+        </article>
 
-      <article class="box what__c">
-        <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
-          <circle cx="20" cy="20" r="14"/><circle cx="14.5" cy="15.5" r="2.2"/>
-          <circle cx="25" cy="14" r="2.2"/><circle cx="28" cy="23" r="2.2"/>
-          <path d="M20 34c2.2 0 3-1.5 3-3s-1.4-2.4-1.4-3.8c0-1.6 1.3-2.7 3-2.7"/>
-        </svg>
-        <h3 class="r-fade">Diseño gráfico</h3>
-        <p class="r-fade">Tarjetas, logotipo, flyers, carteles, imagen corporativa para redes y
-          audio y vídeo corporativo.</p>
-        <span class="what__k r-lab r-keep" style="margin-top:14px">SRV/03</span>
-      </article>
+        <article class="box what__c">
+          <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="14"/><circle cx="14.5" cy="15.5" r="2.2"/>
+            <circle cx="25" cy="14" r="2.2"/><circle cx="28" cy="23" r="2.2"/>
+            <path d="M20 34c2.2 0 3-1.5 3-3s-1.4-2.4-1.4-3.8c0-1.6 1.3-2.7 3-2.7"/>
+          </svg>
+          <div>
+            <h3 class="r-fade">Diseño gráfico</h3>
+            <p class="r-fade">Tarjetas, logotipo, flyers, carteles, imagen corporativa para redes y
+              audio y vídeo corporativo.</p>
+          </div>
+          <span class="what__k r-lab r-keep">SRV/03</span>
+        </article>
 
-      <article class="box what__c">
-        <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
-          <rect x="5" y="9" width="30" height="20" rx="2"/><path d="M14 33h12M20 29v4"/>
-          <path d="M16 19.5l3 3 5.5-6"/>
-        </svg>
-        <h3 class="r-fade">Soporte remoto</h3>
-        <p class="r-fade">Asistencia informática a distancia: averías, virus, programas,
-          certificado digital y copias de seguridad.</p>
-        <span class="what__k r-lab r-keep" style="margin-top:14px">SRV/04</span>
-      </article>
+        <article class="box what__c">
+          <svg class="what__ic" viewBox="0 0 40 40" aria-hidden="true">
+            <rect x="5" y="9" width="30" height="20" rx="2"/><path d="M14 33h12M20 29v4"/>
+            <path d="M16 19.5l3 3 5.5-6"/>
+          </svg>
+          <div>
+            <h3 class="r-fade">Soporte remoto</h3>
+            <p class="r-fade">Asistencia informática a distancia: averías, virus, programas,
+              certificado digital y copias de seguridad.</p>
+          </div>
+          <span class="what__k r-lab r-keep">SRV/04</span>
+        </article>
+      </div>
+    </div>
+
+    <!-- Las 9 ventajas, literales de la portada anterior -->
+    <div class="vent">
+      <div class="vent__h">
+        <span class="lab">Lista — 9 ventajas</span>
+        <h3 class="r-fade">Lo que gana el negocio cuando existe en internet</h3>
+      </div>
+      <ul class="vent__l">
+        <li class="r-fade"><i>01</i>Accesibilidad 24 horas al día</li>
+        <li class="r-fade"><i>02</i>Llegar a nuevos mercados con una audiencia global</li>
+        <li class="r-fade"><i>03</i>Impulso para las ventas</li>
+        <li class="r-fade"><i>04</i>Mejor servicio al cliente</li>
+        <li class="r-fade"><i>05</i>Identidad de marca en línea</li>
+        <li class="r-fade"><i>06</i>Dirección de correo electrónico personalizada</li>
+        <li class="r-fade"><i>07</i>Ahorro en costes de impresión y distribución</li>
+        <li class="r-fade"><i>08</i>Automatización, productividad y rentabilidad</li>
+        <li class="r-fade"><i>09</i>Te enseñamos cómo mejorar tu negocio</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -276,7 +318,7 @@
 
     <ul class="packs__list">
 
-      <li class="packs__item" data-pack>
+      <li class="packs__item" data-pack style="--i:1">
         <article class="pack" id="web-basica">
           <div class="pack__bar">
             <span class="mock__dot"></span><span class="mock__dot"></span><span class="mock__dot"></span>
@@ -307,7 +349,7 @@
         </article>
       </li>
 
-      <li class="packs__item" data-pack>
+      <li class="packs__item" data-pack style="--i:2">
         <article class="pack" id="web-premium">
           <div class="pack__bar">
             <span class="mock__dot"></span><span class="mock__dot"></span><span class="mock__dot"></span>
@@ -343,8 +385,8 @@
         </article>
       </li>
 
-      <li class="packs__item" data-pack>
-        <article class="pack" id="pack-tienda">
+      <li class="packs__item" data-pack style="--i:3">
+        <article class="pack pack--ink" id="pack-tienda">
           <div class="pack__bar">
             <span class="mock__dot"></span><span class="mock__dot"></span><span class="mock__dot"></span>
             <span class="pack__url">tunegocio.es — Tienda online</span>
@@ -445,6 +487,66 @@
   </div>
 </section>
 
+<!-- ============ RESPONSIVE: la maqueta se reajusta con el scroll ========= -->
+<section class="sec sec--rz" id="responsive" data-render data-rz>
+  <div class="wrap">
+    <div class="sh">
+      <span class="sh__n">04</span>
+      <h2 class="turn" data-turn>
+        <span class="turn__mono r-lab">H2 — responsive</span>
+        <span class="turn__real" data-split>Una web, todos los tamaños</span>
+      </h2>
+      <p class="sh__lead r-fade">«Diseño responsive» va en los dos packs. Esto es lo que significa:
+        la misma página se recoloca sola según el ancho de la pantalla — no es otra web para el móvil,
+        es la misma reorganizándose.</p>
+    </div>
+  </div>
+
+  <div class="rz">
+    <div class="rz__sticky">
+      <div class="rz__head wrap">
+        <span class="cota rz__cota"><b data-rz-w>1440</b> px</span>
+        <span class="lab rz__dev" data-rz-dev>Escritorio</span>
+      </div>
+
+      <div class="rz__stage">
+        <div class="rz__frame" data-rz-frame>
+          <div class="rzs">
+            <header class="rzs__bar">
+              <span class="rzs__logo"></span>
+              <nav class="rzs__nav"><i></i><i></i><i></i><i></i></nav>
+              <span class="rzs__burger"><i></i><i></i><i></i></span>
+            </header>
+            <div class="rzs__hero">
+              <div class="rzs__copy">
+                <span class="rzs__h1"></span>
+                <span class="rzs__h1 rzs__h1--s"></span>
+                <span class="rzs__p"></span><span class="rzs__p rzs__p--s"></span>
+                <span class="rzs__btn"></span>
+              </div>
+              <div class="rzs__img"></div>
+            </div>
+            <div class="rzs__grid">
+              <span class="rzs__card"></span><span class="rzs__card"></span><span class="rzs__card"></span>
+            </div>
+            <div class="rzs__foot"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="rz__note wrap">Estás viéndolo ahora mismo: esta página se ha recolocado sola
+        para el ancho de tu pantalla. En un ordenador, esta maqueta se estrecha con el scroll.</p>
+
+      <ol class="rz__ticks wrap" aria-hidden="true">
+        <li data-rz-tick="1440">1440</li>
+        <li data-rz-tick="1024">1024</li>
+        <li data-rz-tick="768">768</li>
+        <li data-rz-tick="390">390</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <hr class="guide">
 
 <!-- ================= DISEÑO GRÁFICO ================= -->
@@ -452,7 +554,7 @@
   <div class="wrap graf">
     <div>
       <div class="sh" style="grid-template-columns:auto 1fr">
-        <span class="sh__n">04</span>
+        <span class="sh__n">05</span>
         <h2 class="turn" data-turn>
           <span class="turn__mono r-lab">H2 — diseño gráfico</span>
           <span class="turn__real" data-split>Diseño gráfico y multimedia</span>
@@ -471,7 +573,7 @@
       </ul>
       <p style="margin-top:26px"><a class="btn btn--ghost" href="#contacto" data-magnetic>Consultar</a></p>
     </div>
-    <div class="shot graf__shot">
+    <div class="shot graf__shot" data-parallax>
       <img src="assets/img/movil-responsive.jpg" alt="Una mano sostiene un móvil con una pantalla de web sobre varios bocetos de diseño dibujados a mano en papel cuadriculado." loading="lazy" width="1600" height="1200">
       <span class="shot__x"><svg viewBox="0 0 100 78" preserveAspectRatio="none"><line x1="0" y1="0" x2="100" y2="78"/><line x1="100" y1="0" x2="0" y2="78"/></svg></span>
       <span class="shot__cap lab r-lab">IMG — 4:3</span>
@@ -483,7 +585,7 @@
 <section class="sec" id="proceso" data-render>
   <div class="wrap">
     <div class="sh">
-      <span class="sh__n">05</span>
+      <span class="sh__n">06</span>
       <h2 class="turn" data-turn>
         <span class="turn__mono r-lab">H2 — proceso</span>
         <span class="turn__real" data-split>Cómo trabajamos</span>
@@ -509,7 +611,7 @@
         <p class="r-fade">La web sale a internet y, en el pack Premium, se da de alta la ficha de Google.</p></div>
     </div>
 
-    <div class="shot proc__shot">
+    <div class="shot proc__shot" data-parallax>
       <img src="assets/img/wireframe-papel.jpg" alt="Hojas impresas con wireframes: cajas, líneas de texto y rectángulos cruzados por un aspa en el lugar de las imágenes." loading="lazy" width="1600" height="1066">
       <span class="shot__x"><svg viewBox="0 0 100 26" preserveAspectRatio="none"><line x1="0" y1="0" x2="100" y2="26"/><line x1="100" y1="0" x2="0" y2="26"/></svg></span>
       <span class="shot__cap lab r-lab">IMG — el paso 01, en papel</span>
@@ -523,7 +625,7 @@
 <section class="sec" id="clientes" data-render>
   <div class="wrap">
     <div class="sh">
-      <span class="sh__n">06</span>
+      <span class="sh__n">07</span>
       <h2 class="turn" data-turn>
         <span class="turn__mono r-lab">H2 — clientes</span>
         <span class="turn__real" data-split>Clientes</span>
@@ -626,7 +728,7 @@
 <section class="sec" id="soporte" data-render>
   <div class="wrap">
     <div class="sh">
-      <span class="sh__n">07</span>
+      <span class="sh__n">08</span>
       <h2 class="turn" data-turn>
         <span class="turn__mono r-lab">H2 — soporte</span>
         <span class="turn__real" data-split>Asistencia informática remota</span>
@@ -656,7 +758,7 @@
           Está en <a href="soporte/software.html">la página de software de soporte</a>, y solo hay que
           descargarlo cuando se haya acordado la cita.</p>
       </div>
-      <div class="shot sop__shot">
+      <div class="shot sop__shot" data-parallax>
         <img src="assets/img/portatil-manos.jpg" alt="Dos manos cerrando un portátil sobre una mesa blanca." loading="lazy" width="1500" height="875">
         <span class="shot__x"><svg viewBox="0 0 100 58" preserveAspectRatio="none"><line x1="0" y1="0" x2="100" y2="58"/><line x1="100" y1="0" x2="0" y2="58"/></svg></span>
         <span class="shot__cap lab r-lab">IMG — 16:9</span>
@@ -688,11 +790,33 @@
   </div>
 </section>
 
+<!-- ============ BANDA CTA ============ -->
+<section class="sec cta" data-render>
+  <div class="wrap">
+    <div class="box box--ink cta__box">
+      <div class="cta__txt">
+        <span class="lab r-lab r-keep">CTA — bloque final</span>
+        <h2 class="turn cta__h" data-turn>
+          <span class="turn__mono r-lab">H2 — cierre</span>
+          <span class="turn__real" data-split>¿Empezamos por el boceto?</span>
+        </h2>
+        <p class="r-fade">Cuéntanos qué negocio es. El presupuesto sale de ahí, no de una tarifa
+          cerrada, y hasta que no lo apruebas no se toca nada.</p>
+      </div>
+      <div class="cta__act">
+        <a class="btn btn--light" href="#contacto" data-magnetic>Pide presupuesto
+          <svg class="btn__i" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn--onInk" href="https://api.whatsapp.com/send?phone=34657303623" target="_blank" rel="noopener" data-magnetic>WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACTO ================= -->
 <section class="sec" id="contacto" data-render>
   <div class="wrap">
     <div class="sh">
-      <span class="sh__n">08</span>
+      <span class="sh__n">09</span>
       <h2 class="turn" data-turn>
         <span class="turn__mono r-lab">H2 — contacto</span>
         <span class="turn__real" data-split>Pide presupuesto</span>
@@ -827,7 +951,8 @@
         <ul>
           <li><a href="#packs">Web Básica</a></li>
           <li><a href="#packs">Web Premium</a></li>
-          <li><a href="#tiendas">Tiendas online</a></li>
+          <li><a href="#tiendas">Tiendas online</a>
+      <a href="#responsive">Responsive</a></li>
           <li><a href="#grafico">Diseño gráfico y multimedia</a></li>
           <li><a href="#soporte">Soporte informático remoto</a></li>
         </ul>

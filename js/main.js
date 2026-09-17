@@ -142,12 +142,42 @@
   /* Una seccion entra en estado boceto y se renderiza al cruzar el 30 %
      del viewport. Una vez renderizada NO vuelve al boceto.               */
 
+  /* El render no cae de golpe: se escalona segun la altura de cada pieza,
+     asi se lee como una pasada de render recorriendo la seccion. */
+  function stagger(sec) {
+    if (!motion) return;
+    var top = sec.getBoundingClientRect().top;
+    var els = $$('.r-fade,.box,.shot,.fake,.proc__n,.vent__l li,.pack__feat li', sec);
+    var max = 0;
+    els.forEach(function (el) {
+      var d = el.getBoundingClientRect().top - top;
+      if (d > max) max = d;
+    });
+    if (max <= 0) max = 1;
+    els.forEach(function (el) {
+      var d = (el.getBoundingClientRect().top - top) / max;
+      el.style.transitionDelay = (Math.min(Math.max(d, 0), 1) * 0.42).toFixed(3) + 's';
+    });
+  }
+
+  function sweep(sec) {
+    if (!motion || !hasGSAP) return;
+    var bar = document.createElement('span');
+    bar.className = 'sweep';
+    sec.appendChild(bar);
+    gsap.fromTo(bar, { scaleY: 0, transformOrigin: '50% 0%' },
+      { scaleY: 1, duration: 0.86, ease: 'power2.inOut',
+        onComplete: function () { gsap.to(bar, { opacity: 0, duration: 0.3,
+          onComplete: function () { bar.remove(); } }); } });
+  }
+
   function renderSection(sec, delay) {
     if (sec.classList.contains('is-rendered')) return;
+    stagger(sec);
+    sweep(sec);
     sec.classList.add('is-rendered');
     revealChars(sec, delay || 0);
-    var counters = $$('[data-count]', sec);
-    counters.forEach(runCounter);
+    $$('[data-count]', sec).forEach(runCounter);
   }
 
   var sections = $$('[data-render]').filter(function (s) { return !s.hasAttribute('data-render-hero'); });
@@ -210,13 +240,142 @@
       for (var i = 1; i < need; i++) marq.appendChild(grp.cloneNode(true));
       if (motion && hasGSAP) {
         var w = grp.offsetWidth;
-        gsap.to(marq, {
+        var tw = gsap.to(marq, {
           x: -w, duration: Math.max(18, w / 26), ease: 'none', repeat: -1,
           modifiers: { x: function (x) { return (parseFloat(x) % w) + 'px'; } }
+        });
+        /* el marquee acusa la velocidad del scroll: acelera y se inclina */
+        var prevY = window.pageYOffset, vel = 0;
+        var skewTo = gsap.quickTo(marq, 'skewX', { duration: 0.5, ease: 'power3.out' });
+        gsap.ticker.add(function () {
+          var y = window.pageYOffset;
+          vel += ((y - prevY) - vel) * 0.16;
+          prevY = y;
+          var v = Math.max(-60, Math.min(60, vel));
+          tw.timeScale(1 + Math.abs(v) / 14);
+          skewTo(-v / 9);
         });
       }
     }
   }
+
+  /* --------------------- profundidad de la baraja de packs (solo escala) */
+
+  if (motion && hasST) {
+    var packItems = $$('[data-pack]');
+    packItems.forEach(function (li, i) {
+      if (i === packItems.length - 1) return;
+      var card = li.querySelector('.pack');
+      var next = packItems[i + 1];
+      gsap.fromTo(card, { scale: 1 }, {
+        scale: 0.94, ease: 'none', immediateRender: false,
+        scrollTrigger: { trigger: next, start: 'top bottom', end: 'top top', scrub: 0.4 }
+      });
+    });
+  }
+
+  /* ------------------------------- demo responsive: el ancho lo manda el scroll */
+  /* El reflow de dentro NO esta simulado: el frame es un container y el CSS
+     usa @container. Aqui solo se anima su ancho. */
+
+  var rz = $('[data-rz]');
+  if (rz) {
+    var frame = $('[data-rz-frame]', rz);
+    var wOut = $('[data-rz-w]', rz);
+    var devOut = $('[data-rz-dev]', rz);
+    var ticks = $$('[data-rz-tick]', rz);
+    var MAXW = 1440, MINW = 390;
+
+    function paintRz(px) {
+      /* El ancho disponible es el del CONTENIDO del escenario: si se usa
+         clientWidth a secas, el padding lateral se suma al ancho fijo del
+         marco y el documento acaba desbordando en movil. */
+      var stage = frame.parentElement;
+      var cs = getComputedStyle(stage);
+      var avail = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      if (!avail || avail < 0) avail = MAXW;
+      var shown = Math.min(px, avail);
+      frame.style.width = shown + 'px';
+      if (wOut) wOut.textContent = String(Math.round(shown));
+      var dev = shown > 1100 ? 'Escritorio' : shown > 820 ? 'Portátil' : shown > 560 ? 'Tablet' : 'Móvil';
+      if (devOut) devOut.textContent = dev;
+      var best = null;
+      ticks.forEach(function (t) {
+        var v = parseInt(t.dataset.rzTick, 10);
+        if (best === null || Math.abs(v - shown) < Math.abs(best - shown)) best = v;
+      });
+      ticks.forEach(function (t) {
+        t.classList.toggle('is-on', parseInt(t.dataset.rzTick, 10) === best);
+      });
+    }
+
+    var narrow = window.matchMedia('(max-width:760px)').matches;
+
+    if (!motion || !hasST || narrow) {
+      /* Sin movimiento, o en pantallas donde la demo no cabe: se pinta al
+         ancho disponible y se deja quieta. */
+      paintRz(MAXW);
+      window.addEventListener('resize', function () { paintRz(MAXW); });
+    } else {
+      ScrollTrigger.create({
+        trigger: rz, start: 'top top', end: 'bottom bottom', scrub: 0.5,
+        onUpdate: function (self) {
+          /* llega a 390 al 82 % y se queda ahi: si no, el estado movil
+             pasa de largo justo cuando el pin se suelta. */
+          var e = Math.min(1, self.progress / 0.82);
+          e = e < 0.5 ? 2 * e * e : 1 - Math.pow(-2 * e + 2, 2) / 2;   // inOutQuad
+          paintRz(MAXW - (MAXW - MINW) * e);
+        }
+      });
+      paintRz(MAXW);
+      window.addEventListener('resize', function () {
+        paintRz(parseFloat(frame.style.width) || MAXW);
+      });
+    }
+  }
+
+  /* ------------------------------------------------ parallax de las fotos */
+
+  if (motion && hasST) {
+    $$('[data-parallax]').forEach(function (el) {
+      var img = el.querySelector('img');
+      if (!img) return;
+      gsap.fromTo(img, { yPercent: -7 }, {
+        yPercent: 7, ease: 'none', immediateRender: false,
+        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+      });
+    });
+  }
+
+  /* --------------------------- lectura de coordenadas, como una herramienta */
+
+  var readout = $('#readout');
+  if (readout && motion && window.matchMedia('(pointer:fine)').matches) {
+    var rx = gsap.quickTo ? gsap.quickTo(readout, 'x', { duration: 0.28, ease: 'power3.out' }) : null;
+    var ry = gsap.quickTo ? gsap.quickTo(readout, 'y', { duration: 0.28, ease: 'power3.out' }) : null;
+    window.addEventListener('pointermove', function (e) {
+      if (rx) { rx(e.clientX + 16); ry(e.clientY + 18); }
+      readout.textContent = 'x ' + e.clientX + '  y ' + Math.round(e.clientY + window.pageYOffset);
+      readout.classList.add('is-on');
+    }, { passive: true });
+    document.addEventListener('mouseleave', function () { readout.classList.remove('is-on'); });
+  }
+
+  /* ------------------------------- rejilla de maquetacion, con la tecla G */
+
+  var gridBtn = $('#gridBtn');
+  function toggleGrid(force) {
+    var on = root.classList.toggle('show-grid', force);
+    if (gridBtn) gridBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  if (gridBtn) gridBtn.addEventListener('click', function () { toggleGrid(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'g' || e.key === 'G') {
+      var t = e.target.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT') return;
+      toggleGrid();
+    }
+  });
 
   /* --------------------------------------------------- botones magneticos */
 
