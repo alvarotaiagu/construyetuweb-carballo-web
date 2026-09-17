@@ -1,0 +1,5 @@
+# Originales sin corregir de las fotos de archivo: solo hacen falta para
+# reejecutar scripts/grade-photos.py en local.
+assets/img/raw-*.jpg
+Thumbs.db
+.DS_Store

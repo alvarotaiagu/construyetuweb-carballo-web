@@ -1,0 +1,32 @@
+# ── construyetuweb.es — migración de la web anterior (WebSite X5) ──────
+# Mismo mapa que _redirects, para hosting Apache.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^index\.html$        /                       [R=301,L]
+  RewriteRule ^servicios\.html$    /#packs                 [R=301,L,NE]
+  RewriteRule ^clientes\.html$     /#clientes              [R=301,L,NE]
+  RewriteRule ^soporte-\.html$     /#soporte               [R=301,L,NE]
+  RewriteRule ^software\.html$     /soporte/software.html  [R=301,L]
+  RewriteRule ^contacto\.html$     /#contacto              [R=301,L,NE]
+  RewriteRule ^subvenciones\.html$ /#ayudas                [R=301,L,NE]
+  RewriteRule ^pagos\.html$        /#contacto              [R=301,L,NE]
+  RewriteRule ^acceso\.html$       /                       [R=301,L]
+  RewriteRule ^blog/?$             /                       [R=301,L]
+  RewriteRule ^blog/.*$            /                       [R=301,L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg      "access plus 1 year"
+  ExpiresByType image/png       "access plus 1 year"
+  ExpiresByType image/svg+xml   "access plus 1 year"
+  ExpiresByType text/css        "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

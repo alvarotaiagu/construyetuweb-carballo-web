@@ -1,0 +1,24 @@
+{
+  "name": "construyetuweb.es",
+  "short_name": "construyetuweb",
+  "description": "Diseño de sitios web y tiendas online en Carballo (A Coruña).",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1F3A93",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/logos/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logos/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "scope": "./"
+}

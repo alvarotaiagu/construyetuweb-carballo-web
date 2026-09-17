@@ -1,0 +1,14 @@
+# Migración de la web anterior (Incomedia WebSite X5) -> web nueva.
+# Ninguna URL antigua puede acabar en 404.
+# privacidad.html y cookies.html conservan su ruta: no necesitan regla.
+/index.html            /                       301
+/servicios.html        /#packs                 301
+/clientes.html         /#clientes              301
+/soporte-.html         /#soporte               301
+/software.html         /soporte/software.html  301
+/contacto.html         /#contacto              301
+/subvenciones.html     /#ayudas                301
+/pagos.html            /#contacto              301
+/acceso.html           /                       301
+/blog                  /                       301
+/blog/*                /                       301

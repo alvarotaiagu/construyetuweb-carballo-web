@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /soporte/software.html
+
+Sitemap: https://construyetuweb.es/sitemap.xml

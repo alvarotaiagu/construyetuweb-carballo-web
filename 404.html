@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Página no encontrada — construyetuweb.es</title>
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#1F3A93">
+<script>
+/* ---------------------------------------------------------------------
+   Esta página la sirve el hosting para CUALQUIER ruta que no existe, a
+   cualquier profundidad, así que no puede usar rutas relativas a secas.
+   Se calcula la base y se inyecta un <base> antes de que el parser llegue
+   al <link> del CSS:
+     · en construyetuweb.es la web cuelga de la raíz        -> "/"
+     · en una preview de GitHub Pages cuelga de /<repo>/    -> "/<repo>/"
+   --------------------------------------------------------------------- */
+(function () {
+  var REPO = 'construyetuweb-carballo-web';   // nombre del repo en GitHub Pages
+  var path = location.pathname;
+  var base = '/';
+  if (path.indexOf('/' + REPO + '/') === 0 || path === '/' + REPO) base = '/' + REPO + '/';
+  var el = document.createElement('base');
+  el.href = base;
+  document.head.appendChild(el);
+
+  /* Red de seguridad de la migración: si el hosting no aplica _redirects ni
+     .htaccess (GitHub Pages no lo hace), la URL antigua llega aquí y la
+     resolvemos en el navegador. Mismo mapa que esos dos ficheros. */
+  var map = {
+    '/index.html': '',
+    '/servicios.html': '#packs',
+    '/clientes.html': '#clientes',
+    '/soporte-.html': '#soporte',
+    '/software.html': 'soporte/software.html',
+    '/contacto.html': '#contacto',
+    '/subvenciones.html': '#ayudas',
+    '/pagos.html': '#contacto',
+    '/acceso.html': ''
+  };
+  var rel = path.slice(base.length - 1).replace(/\/+$/, '') || '/';
+  var to = map[rel];
+  if (to === undefined) to = map[rel.toLowerCase()];
+  if (to === undefined && /^\/blog(\/|$)/i.test(rel)) to = '';
+  if (to !== undefined) location.replace(base + to);
+})();
+</script>
+<link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hdr is-stuck">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href="./" aria-label="construyetuweb.es — inicio">
+      <svg viewBox="0 0 268 50" width="268" height="50" aria-hidden="true">
+        <g fill="#004B99" transform="translate(0 4)"><rect x="4" y="4" width="15" height="15" rx="1.4"/><circle cx="11.5" cy="4" r="4"/><circle cx="19" cy="11.5" r="4"/><circle cx="11.5" cy="19" r="4"/><circle cx="4" cy="11.5" r="4"/></g>
+        <g fill="#488DC6" transform="translate(26 0)"><rect x="4" y="4" width="15" height="15" rx="1.4"/><circle cx="11.5" cy="4" r="4"/><circle cx="19" cy="11.5" r="4"/><circle cx="11.5" cy="19" r="4"/><circle cx="4" cy="11.5" r="4"/></g>
+        <g fill="#0C1049" transform="translate(0 27)"><rect x="4" y="4" width="15" height="15" rx="1.4"/><circle cx="11.5" cy="4" r="4"/><circle cx="19" cy="11.5" r="4"/><circle cx="11.5" cy="19" r="4"/><circle cx="4" cy="11.5" r="4"/></g>
+        <g fill="#162983" transform="translate(25 26)"><rect x="4" y="4" width="15" height="15" rx="1.4"/><circle cx="11.5" cy="4" r="4"/><circle cx="19" cy="11.5" r="4"/><circle cx="11.5" cy="19" r="4"/><circle cx="4" cy="11.5" r="4"/></g>
+        <text x="55" y="33" font-family="'IBM Plex Mono','Courier New',monospace" font-size="20.5" fill="#141A24">Construyetuweb.es</text>
+      </svg>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="./#packs">Packs</a>
+      <a href="./#clientes">Clientes</a>
+      <a class="btn" href="./#contacto">Pide presupuesto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="wrap">
+    <p class="lab" style="margin-bottom:16px">ERROR 404 — página no encontrada</p>
+    <h1>Esta caja se quedó vacía.</h1>
+    <p class="page__lead">La dirección que has pedido no existe en la web nueva. Desde la portada
+      llegas a todo en dos clics.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
+      <a class="btn" href="./">Ir a la portada</a>
+      <a class="btn btn--ghost" href="./#contacto">Contacto</a>
+    </div>
+
+    <div class="prose" style="margin-top:44px">
+      <h2>Lo que hay</h2>
+      <ul>
+        <li><a href="./#que-hacemos">Qué hacemos</a></li>
+        <li><a href="./#packs">Packs de página web</a></li>
+        <li><a href="./#tiendas">Tiendas online</a></li>
+        <li><a href="./#grafico">Diseño gráfico y multimedia</a></li>
+        <li><a href="./#clientes">Clientes</a></li>
+        <li><a href="./#soporte">Soporte informático remoto</a></li>
+        <li><a href="./#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft__bot">
+      <span>© <span id="year">2026</span> construyetuweb.es</span>
+      <a href="privacidad.html">Aviso legal y privacidad</a>
+      <a href="cookies.html">Cookies</a>
+      <span class="sep">Carballo · A Coruña</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
